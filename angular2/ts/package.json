@@ -1,0 +1,12 @@
+{
+  "name": "labs-angular-ts",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/Microsoft/ngconf2015demo"
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.1.0",
+    "systemjs": "0.17.1",
+    "typescript": "mhegazy/typescript#v1.5-beta2"
+  }
+}

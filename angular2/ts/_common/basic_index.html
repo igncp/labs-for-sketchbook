@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+
+<head>
+    <script src="https://github.jspm.io/jmcriffey/bower-traceur-runtime@0.0.87/traceur-runtime.js"></script>
+    <script src="../node_modules/reflect-metadata/Reflect.js"></script>
+    <script src="../node_modules/typescript/bin/typescript.js"></script>
+    <script src="../node_modules/systemjs/dist/system.src.js"></script>
+    <script src="../angular/dist/build/angular2.dev.js"></script>
+</head>
+
+<body>
+    <app>Loading...</app>
+    <script>
+    System.config({
+        transpiler: "typescript",
+        typescriptOptions: {
+            emitDecoratorMetadata: true,
+            experimentalDecorators: true
+        },
+        "traceurOptions": {
+            "annotations": true,
+            "memberVariables": true,
+            "types": true
+        },
+    });
+    System.paths = {
+        "app": "app.ts"
+    };
+    System.import('app');
+    </script>
+</body>
+
+</html>
