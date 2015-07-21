@@ -1,0 +1,6 @@
+<form #f="form" (submit)="onSubmit(f.value)">
+    <p><input type="text" ng-control="name"></p>
+    <p><input type="password" ng-control="password"></p>
+    <p><button type="submit">Enter</button></p>
+    <p><button (click)="fillText(f, f.value)" type="button">Fill the text</button></p>
+</form>
