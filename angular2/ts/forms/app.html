@@ -1,6 +1,7 @@
 <form #f="form" (submit)="onSubmit(f.value)">
-    <p><input type="text" ng-control="name"></p>
-    <p><input type="password" ng-control="password"></p>
-    <p><button type="submit">Enter</button></p>
-    <p><button (click)="fillText(f, f.value)" type="button">Fill the text</button></p>
+    <p *ng-if="text">Text: Name filled with {{text}}</p>
+    <p><input type="text" ng-control="name"> <span *ng-if="f.value.name">Welcome {{f.value.name}}!</span></p>
+    <p><input type="password" ng-control="password"> <span *ng-if="f.value.password"><span *ng-if="f.value.password.length < 8">Password is too short</span><span *ng-if="f.value.password.length >= 8">Password long enough</span></span></p>
+    <p><button type="submit">Enter</button> <button (click)="fillText(f, f.value)" type="button">Fill the text</button></p>
 </form>
+<p *ng-if="submitText">{{submitText}}</p>

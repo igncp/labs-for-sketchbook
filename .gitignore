@@ -1,5 +1,6 @@
 repositories
 node_modules
 dist
+bower_components
 .vagrant
-tmux*.log
+*.log

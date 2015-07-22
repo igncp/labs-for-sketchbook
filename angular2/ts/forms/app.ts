@@ -1,19 +1,21 @@
-import {Component, bootstrap, View} from "angular2/angular2";  
+import {Component, bootstrap, View, NgIf} from "angular2/angular2";  
 import {formDirectives} from "angular2/forms";
  
 @Component({  
-  selector: 'app'  
+  selector: 'app'
 })  
 @View({  
-  directives: [formDirectives],  
+  directives: [formDirectives, NgIf],  
   templateUrl: 'app.html'
 })  
 class FormExample {
+  text: string = '';
+  submitText: string = '';
   fillText(form, values) {
-    console.log(values);
+    this.text = values.name || '';
   }
   onSubmit(values) {  
-    console.log('You entered the values: ', values);  
+    this.submitText = 'You entered the values: ' + JSON.stringify(values);
   }
 }
 

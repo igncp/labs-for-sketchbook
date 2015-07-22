@@ -1,0 +1,15 @@
+{
+  "name": "ts",
+  "version": "0.0.0",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "zone.js": "~0.5.2"
+  }
+}
