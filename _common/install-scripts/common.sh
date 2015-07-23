@@ -1,4 +1,4 @@
-if ! type "tmux" > /dev/null; then
+if ! type "unzip" > /dev/null; then
   apt-get update
   
   apt-get install -y git unzip tmux
