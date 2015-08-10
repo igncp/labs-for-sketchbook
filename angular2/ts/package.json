@@ -5,8 +5,11 @@
     "url": "https://github.com/Microsoft/ngconf2015demo"
   },
   "dependencies": {
+    "es6-module-loader": "^0.17.5",
+    "mocha": "^2.2.5",
     "reflect-metadata": "^0.1.0",
-    "systemjs": "0.17.1",
+    "systemjs": "^0.17.1",
+    "traceur": "0.0.91",
     "typescript": "mhegazy/typescript#v1.5-beta2",
     "zone": "^0.3.4"
   }

@@ -62,6 +62,10 @@
 
     "globals"       : {
         "console": false,
-        "Rx": false
+        "Rx": false,
+        "R": false,
+        "expect": false,
+        "it": false,
+        "describe": false
     }
 }

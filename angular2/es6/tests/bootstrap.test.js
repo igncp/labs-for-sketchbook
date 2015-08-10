@@ -1,6 +1,5 @@
 import {AsyncTestCompleter, inject, describe, it, xit} from 'angular2/test_lib';
 import {PromiseWrapper} from 'angular2/src/facade/async';
-import {DOM} from 'angular2/src/dom/dom_adapter';
 
 import {bootstrap} from 'angular2/angular2';
 
@@ -12,6 +11,7 @@ describe('bootstrap', function() {
     async.done();
   }));
   xit('creates an application', inject([AsyncTestCompleter], (async) => {
+    // There might be a bug as DOM can not be imported
     var refPromise = bootstrap(Foo, []);
 
     PromiseWrapper.then(refPromise, null, (reason) => {

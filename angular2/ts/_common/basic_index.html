@@ -12,24 +12,7 @@
 
 <body>
     <app></app>
-    <script>
-    System.config({
-        transpiler: "typescript",
-        typescriptOptions: {
-            emitDecoratorMetadata: true,
-            experimentalDecorators: true
-        },
-        "traceurOptions": {
-            "annotations": true,
-            "memberVariables": true,
-            "types": true
-        },
-    });
-    System.paths = {
-        "app": "app.ts"
-    };
-    System.import('app');
-    </script>
+    <script src="/_common/system-config.js"></script>
 </body>
 
 </html>

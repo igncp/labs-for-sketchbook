@@ -2,11 +2,11 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "ubuntu12"
+  config.vm.box = "ubuntu14"
   config.vm.provider "virtualbox" do |v|
     v.memory = 1024
   end
-  config.vm.box_url = 'https://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box'
+  config.vm.box_url = 'https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box'
   config.vm.hostname = 'angular2-labs'
   config.vm.network "forwarded_port", guest: 80, host: 9080
   config.vm.network "forwarded_port", guest: 9000, host: 9000

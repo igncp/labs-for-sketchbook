@@ -10,6 +10,8 @@
     "tests"
   ],
   "dependencies": {
-    "zone.js": "~0.5.2"
+    "zone.js": "~0.5.2",
+    "traceur-runtime": "0.0.87",
+    "systemjs": "*"
   }
 }
