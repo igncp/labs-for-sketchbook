@@ -244,35 +244,35 @@ describe 'docs examples', ->
   it 'dec: Decrements its argument.', ->
     expect(R.dec(42)).to.equal(41)
 
-  xit 'defaultTo: Returns the second argument if xit is not null or undefined. If xit is null or undefined, the first (default) argument is returned.', ->
-    defaultTo42 = defaultTo(42)
+  it 'defaultTo: Returns the second argument if it is not null or undefined. If it is null or undefined, the first (default) argument is returned.', ->
+    defaultTo42 = R.defaultTo(42)
 
-    defaultTo42(null)  #=> 42
-    defaultTo42(undefined)  #=> 42
-    defaultTo42('Ramda')  #=> 'Ramda'
+    expect(defaultTo42(null)).to.equal(42)
+    expect(defaultTo42(undefined)).to.equal(42)
+    expect(defaultTo42('Ramda')).to.equal('Ramda')
 
-  xit 'difference: Finds the set (i.e. no duplicates) of all elements in the first list not contained in the second list.', ->
-    R.difference([1,2,3,4], [7,6,5,4,3]) #=> [1,2]
-    R.difference([7,6,5,4,3], [1,2,3,4]) #=> [7,6,5]
+  it 'difference: Finds the set (i.e. no duplicates) of all elements in the first list not contained in the second list.', ->
+    expect(R.difference([1,2,3,4], [7,6,5,4,3])).to.eql([1,2])
+    expect(R.difference([7,6,5,4,3], [1,2,3,4])).to.eql([7,6,5])
 
-  xit 'differenceWith: Finds the set (i.e. no duplicates) of all elements in the first list not contained in the second list. Duplication is determined according to the value returned by applying the supplied predicate to two list elements.', ->
+  it 'differenceWith: Finds the set (i.e. no duplicates) of all elements in the first list not contained in the second list. Duplication is determined according to the value returned by applying the supplied predicate to two list elements.', ->
     cmp = (x, y)-> x.a is y.a
     l1 = [{a: 1}, {a: 2}, {a: 3}]
     l2 = [{a: 3}, {a: 4}]
-    R.differenceWith(cmp, l1, l2) #=> [{a: 1}, {a: 2}]
+    expect(R.differenceWith(cmp, l1, l2)).to.eql([{a: 1}, {a: 2}])
 
-  xit 'dissoc: Returns a new object that does not contain a prop property.', ->
-    R.dissoc('b', {a: 1, b: 2, c: 3}) #=> {a: 1, c: 3}
+  it 'dissoc: Returns a new object that does not contain a prop property.', ->
+    expect(R.dissoc('b', {a: 1, b: 2, c: 3})).to.eql({a: 1, c: 3})
 
-  xit 'dissocPath: Makes a shallow clone of an object, omitting the property at the given path. Note that this copies and flattens prototype properties onto the new object as well. All non-primitive properties are copied by reference.', ->
-    R.dissocPath(['a', 'b', 'c'], {a: {b: {c: 42}}}) #=> {a: {b: {}}}
+  it 'dissocPath: Makes a shallow clone of an object, omitting the property at the given path. Note that this copies and flattens prototype properties onto the new object as well. All non-primitive properties are copied by reference.', ->
+    expect(R.dissocPath(['a', 'b', 'c'], {a: {b: {c: 42}}})).to.eql({a: {b: {}}})
 
-  xit 'divide: Divides two numbers. Equivalent to a / b.', ->
-    R.divide(71, 100) #=> 0.71
+  it 'divide: Divides two numbers. Equivalent to a / b.', ->
+    expect(R.divide(71, 100)).to.equal(0.71)
     half = R.divide(R.__, 2)
-    half(42) #=> 21
+    expect(half(42)).to.equal(21)
     reciprocal = R.divide(1)
-    reciprocal(4)   #=> 0.25
+    expect(reciprocal(4)).to.equal(0.25)
 
   xit 'drop: Returns all but the first n elements of the given list, string, or transducer/transformer (or object with a drop method).', ->
     R.drop(1, ['foo', 'bar', 'baz']) #=> ['bar', 'baz']
