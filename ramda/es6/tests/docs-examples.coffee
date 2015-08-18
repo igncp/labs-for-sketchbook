@@ -1188,11 +1188,12 @@ describe 'docs examples', ->
   xit 'toUpper: The upper case version of a string.', ->
     R.toUpper('abc') #=> 'ABC'
 
-  xit 'transduce: Initializes a transducer using supplied iterator function. Returns a single item by iterating through the list, successively calling the transformed iterator function and passing xit an accumulator value and the current value from the array, and then passing the result to the next call.', ->
+  it 'transduce: Initializes a transducer using supplied iterator function. Returns a single item by iterating through the list, successively calling the transformed iterator function and passing xit an accumulator value and the current value from the array, and then passing the result to the next call.', ->
     numbers = [1, 2, 3, 4]
     transducer = R.compose(R.map(R.add(1)), R.take(2))
 
-    R.transduce(transducer, R.flip(R.append), [], numbers) #=> [2, 3]
+    result = R.transduce(transducer, R.flip(R.append), [], numbers)
+    expect(result).to.eql([2, 3])
 
   xit 'trim: Removes (strips) whitespace from both ends of the string.', ->
     R.trim('   xyz  ') #=> 'xyz'
@@ -1230,8 +1231,8 @@ describe 'docs examples', ->
     f = (n)-> n > 50 ? false : [-n, n + 10]
     R.unfold(f, 10) #=> [-10, -20, -30, -40, -50]
 
-  xit 'union: Combines two lists into a set (i.e. no duplicates) composed of the elements of each list.', ->
-    R.union([1, 2, 3], [2, 3, 4]) #=> [1, 2, 3, 4]
+  it 'union: Combines two lists into a set (i.e. no duplicates) composed of the elements of each list.', ->
+    expect(R.union([1, 2, 3], [2, 3, 4])).to.eql [1, 2, 3, 4]
 
   xit 'unionWith: Combines two lists into a set (i.e. no duplicates) composed of the elements of each list. Duplication is determined according to the value returned by applying the supplied predicate to two list elements.', ->
     cmp = (x, y)-> x.a is y.a
@@ -1239,10 +1240,10 @@ describe 'docs examples', ->
     l2 = [{a: 1}, {a: 4}]
     R.unionWith(cmp, l1, l2) #=> [{a: 1}, {a: 2}, {a: 4}]
 
-  xit 'uniq: Returns a new list containing only one copy of each element in the original list. R.equals is used to determine equality.', ->
-    R.uniq([1, 1, 2, 1]) #=> [1, 2]
-    R.uniq([1, '1'])     #=> [1, '1']
-    R.uniq([[42], [42]]) #=> [[42]]
+  it 'uniq: Returns a new list containing only one copy of each element in the original list. R.equals is used to determine equality.', ->
+    expect(R.uniq([1, 1, 2, 1])).to.eql([1, 2])
+    expect(R.uniq([1, '1'])).to.eql([1, '1'])
+    expect(R.uniq([[42], [42]])).to.eql([[42]])
 
   xit 'uniqBy: Returns a new list containing only one copy of each element in the original list, based upon the value returned by applying the supplied function to each list element. Prefers the first item if the supplied function produces the same value on two items. R.equals is used for comparison.', ->
     R.uniqBy(Math.abs, [-1, -5, 2, 10, 1, 2]) #=> [-1, -5, 2, 10]
