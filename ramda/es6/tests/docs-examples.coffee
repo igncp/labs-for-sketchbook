@@ -611,29 +611,28 @@ describe 'docs examples', ->
     spacer(['a', 2, 3.4])   #=> 'a 2 3.4'
     R.join('|', [1, 2, 3])    #=> '1|2|3'
 
-  xit 'keys: Returns a list containing the names of all the enumerable own properties of the supplied object. Note that the order of the output array is not guaranteed to be consistent across different JS platforms.', ->
-    R.keys({a: 1, b: 2, c: 3}) #=> ['a', 'b', 'c']
+  it 'keys: Returns a list containing the names of all the enumerable own properties of the supplied object. Note that the order of the output array is not guaranteed to be consistent across different JS platforms.', ->
+    expect(R.keys({a: 1, b: 2, c: 3})).to.eql(['a', 'b', 'c'])
 
-  xit 'keysIn: Returns a list containing the names of all the properties of the supplied object, including prototype properties. Note that the order of the output array is not guaranteed to be consistent across different JS platforms.', ->
+  it 'keysIn: Returns a list containing the names of all the properties of the supplied object, including prototype properties. Note that the order of the output array is not guaranteed to be consistent across different JS platforms.', ->
     F = ()-> this.x = 'X'
     F.prototype.y = 'Y'
     f = new F()
-    R.keysIn(f) #=> ['x', 'y']
+    expect(R.keysIn(f)).to.include('x')
 
-  xit 'last: Returns the last element of the given list or string.', ->
-  R.last(['fi', 'fo', 'fum']) #=> 'fum'
-  R.last([]) #=> undefined
+  it 'last: Returns the last element of the given list or string.', ->
+    expect(R.last(['fi', 'fo', 'fum'])).to.equal('fum')
+    expect(R.last([])).to.be.undefined
+    expect(R.last('abc')).to.equal('c')
+    expect(R.last('')).to.equal('')
 
-  R.last('abc') #=> 'c'
-  R.last('') #=> ''
+  it 'lastIndexOf: Returns the position of the last occurrence of an item in an array, or -1 if the item is not included in the array. R.equals is used to determine equality.', ->
+    expect(R.lastIndexOf(3, [-1,3,3,0,1,2,3,4])).to.equal(6)
+    expect(R.lastIndexOf(10, [1,2,3,4])).to.equal(-1)
 
-  xit 'lastIndexOf: Returns the position of the last occurrence of an item in an array, or -1 if the item is not included in the array. R.equals is used to determine equality.', ->
-    R.lastIndexOf(3, [-1,3,3,0,1,2,3,4]) #=> 6
-    R.lastIndexOf(10, [1,2,3,4]) #=> -1
-
-  xit 'length: Returns the number of elements in the array by returning list.length.', ->
-    R.length([]) #=> 0
-    R.length([1, 2, 3]) #=> 3
+  it 'length: Returns the number of elements in the array by returning list.length.', ->
+    expect(R.length([])).to.equal(0)
+    expect(R.length([1, 2, 3])).to.equal(3)
 
   xit 'lens: Returns a lens for the given getter and setter functions. The getter \"gets\" the value of the focus the setter \"sets\" the value of the focus. The setter should not mutate the data structure.', ->
     xLens = R.lens(R.prop('x'), R.assoc('x'))
@@ -656,46 +655,41 @@ describe 'docs examples', ->
     R.set(xLens, 4, {x: 1, y: 2})          #=> {x: 4, y: 2}
     R.over(xLens, R.negate, {x: 1, y: 2})  #=> {x: -1, y: 2}
 
-  xit 'lift: "lifts" a function of arity > 1 so that xit may "map over" an Array or other Functor.', ->
-    madd3 = R.lift(R.curry((a, b, c)->
-      return a + b + c
-    ))
-    madd3([1,2,3], [1,2,3], [1]) #=> [3, 4, 5, 4, 5, 6, 5, 6, 7]
+  it 'lift: "lifts" a function of arity > 1 so that it may "map over" an Array or other Functor.', ->
+    addNums = (a, b)-> a + b
+    addNumsLifted = R.lift(addNums)
+    expect(addNumsLifted([1], [1])).to.eql([2])
+    expect(addNumsLifted([1, 2], [1])).to.eql([2, 3])
+    expect(addNumsLifted([1, 2], [1, 2])).to.eql([2, 3, 3, 4])
 
-    madd5 = R.lift(R.curry((a, b, c, d, e)->
-      return a + b + c + d + e
-    ))
-    madd5([1,2], [3], [4, 5], [6], [7, 8]) #=> [21, 22, 22, 23, 22, 23, 23, 24]
-
-  xit 'liftN: "lifts" a function to be the specified arity, so that xit may "map over" that many lists (or other Functors).', ->
-    madd3 = R.liftN(3, R.curryN(3, ()->
+  it 'liftN: "lifts" a function to be the specified arity, so that xit may "map over" that many lists (or other Functors).', ->
+    madd3 = R.liftN(3, ()->
       return R.reduce(R.add, 0, arguments)
-    ))
-    madd3([1,2,3], [1,2,3], [1]) #=> [3, 4, 5, 4, 5, 6, 5, 6, 7]
+    )
+    expect(madd3([1,2,3], [1,2,3], [1])).to.eql([3, 4, 5, 4, 5, 6, 5, 6, 7])
 
-  xit 'lt: Returns true if the first argument is less than the second false otherwise.', ->
-    R.lt(2, 1) #=> false
-    R.lt(2, 2) #=> false
-    R.lt(2, 3) #=> true
-    R.lt('a', 'z') #=> true
-    R.lt('z', 'a') #=> false
+  it 'lt: Returns true if the first argument is less than the second, false otherwise.', ->
+    expect(R.lt(2, 1)).to.be.false
+    expect(R.lt(2, 2)).to.be.false
+    expect(R.lt(2, 3)).to.be.true
+    expect(R.lt('a', 'z')).to.be.true
+    expect(R.lt('z', 'a')).to.be.false
 
-  xit 'lte: Returns true if the first argument is less than or equal to the second false otherwise.', ->
-  R.lte(2, 1) #=> false
-  R.lte(2, 2) #=> true
-  R.lte(2, 3) #=> true
-  R.lte('a', 'z') #=> true
-  R.lte('z', 'a') #=> false
+  it 'lte: Returns true if the first argument is less than or equal to the second false otherwise.', ->
+    expect(R.lte(2, 1)).to.be.false
+    expect(R.lte(2, 2)).to.be.true
+    expect(R.lte(2, 3)).to.be.true
+    expect(R.lte('a', 'z')).to.be.true
+    expect(R.lte('z', 'a')).to.be.false
 
-  xit 'map: Returns a new list, constructed by applying the supplied function to every element of the supplied list.', ->
+  it 'map: Returns a new list, constructed by applying the supplied function to every element of the supplied list.', ->
     double = (x)-> x * 2
+    expect(R.map(double, [1, 2, 3])).to.eql([2, 4, 6])
 
-    R.map(double, [1, 2, 3]) #=> [2, 4, 6]
-
-  xit 'mapAccum: The mapAccum function behaves like a combination of map and reduce xit applies a function to each element of a list, passing an accumulating parameter from left to right, and returning a final value of this accumulator together with the new list.', ->
+  it 'mapAccum: The mapAccum function behaves like a combination of map and reduce, it applies a function to each element of a list, passing an accumulating parameter from left to right, and returning a final value of this accumulator together with the new list.', ->
     digits = ['1', '2', '3', '4']
     append = (a, b)-> [a + b, a + b]
-    R.mapAccum(append, 0, digits) #=> ['01234', ['01', '012', '0123', '01234']]
+    expect(R.mapAccum(append, 0, digits)).to.eql(['01234', ['01', '012', '0123', '01234']])
 
   xit 'mapAccumRight: The mapAccumRight function behaves like a combination of map and reduce xit applies a function to each element of a list, passing an accumulating parameter from right to left, and returning a final value of this accumulator together with the new list.', ->
     digits = ['1', '2', '3', '4']
@@ -703,16 +697,15 @@ describe 'docs examples', ->
 
     R.mapAccumRight(append, 0, digits) #=> ['04321', ['04321', '0432', '043', '04']]
 
-  xit 'mapObj: Map, but for objects. Creates an object with the same keys as obj and values generated by running each property of obj through fn. fn is passed one argument: (value).', ->
+  it 'mapObj: Map, but for objects. Creates an object with the same keys as obj and values generated by running each property of obj through fn. fn is passed one argument: (value).', ->
     values = { x: 1, y: 2, z: 3 }
     double = (num)-> num * 2
+    expect(R.mapObj(double, values)).to.eql({ x: 2, y: 4, z: 6 })
 
-    R.mapObj(double, values) #=> { x: 2, y: 4, z: 6 }
-
-  xit 'mapObjIndexed: Like mapObj, but but passes additional arguments to the predicate function. The predicate function is passed three arguments: (value, key, obj).', ->
+  it 'mapObjIndexed: Like mapObj, but passes additional arguments to the predicate function. The predicate function is passed three arguments: (value, key, obj).', ->
     values = { x: 1, y: 2, z: 3 }
     prependKeyAndDouble = (num, key, obj)-> key + (num * 2)
-    R.mapObjIndexed(prependKeyAndDouble, values) #=> { x: 'x2', y: 'y4', z: 'z6' }
+    expect(R.mapObjIndexed(prependKeyAndDouble, values)).to.eql({ x: 'x2', y: 'y4', z: 'z6' })
 
   xit 'match: Tests a regular expression against a String. Note that this function will return an empty array when there are no matches. This differs from String.prototype.match which returns null when there are no matches.', ->
     R.match(/([a-z]a)/g, 'bananas') #=> ['ba', 'na', 'na']
