@@ -1281,8 +1281,8 @@ describe 'docs examples', ->
     #≅ addAll(double(10), square(5), R.identity(100))
     addDoubleAndSquare(10, 5, 100) #=> 145
 
-  xit 'values: Returns a list of all the enumerable own properties of the supplied object. Note that the order of the output array is not guaranteed across different JS platforms.', ->
-    R.values({a: 1, b: 2, c: 3}) #=> [1, 2, 3]
+  it 'values: Returns a list of all the enumerable own properties of the supplied object. Note that the order of the output array is not guaranteed across different JS platforms.', ->
+    expect(R.values({a: 1, b: 2, c: 3})).to.eql([1, 2, 3])
   
   xit 'valuesIn: Returns a list of all the properties, including prototype properties, of the supplied object. Note that the order of the output array is not guaranteed to be consistent across different JS platforms.', ->
     F = ()-> this.x = 'X'
@@ -1290,10 +1290,10 @@ describe 'docs examples', ->
     f = new F()
     R.valuesIn(f) #=> ['X', 'Y']
 
-  xit 'view: Returns a "view" of the given data structure, determined by the given lens. The lens\'s focus determines which portion of the data structure is visible.', ->
+  it 'view: Returns a "view" of the given data structure, determined by the given lens. The lens\'s focus determines which portion of the data structure is visible.', ->
     xLens = R.lensProp('x')
-    R.view(xLens, {x: 1, y: 2})  #=> 1
-    R.view(xLens, {x: 4, y: 2})  #=> 4
+    expect(R.view(xLens, {x: 1, y: 2})).to.equal(1)
+    expect(R.view(xLens, {x: 4, y: 2})).to.equal(4)
 
   xit "where: Takes a spec object and a test object returns true if the test satisfies the spec. Each of the spec's own properties must be a predicate function. Each predicate is applied to the value of the corresponding property of the test object. where returns true if all the predicates return true, false otherwise.", ->
     # pred :: Object -> Boolean
