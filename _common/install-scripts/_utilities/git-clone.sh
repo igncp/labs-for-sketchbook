@@ -4,6 +4,7 @@ if [ ! -d /project/repositories/"$1" ]; then
   git clone $2 $1
   if [ ! -z "$3" ]; then
     cd "$1"
+    git fetch
     git checkout -b "$3"
   fi
   cd

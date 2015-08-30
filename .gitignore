@@ -6,3 +6,5 @@ bower_components
 .vagrant
 *.log
 private
+images_excluded/*
+!images_excluded/Readme.md

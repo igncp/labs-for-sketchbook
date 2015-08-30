@@ -1,7 +1,7 @@
 if ! type "unzip" > /dev/null; then
   apt-get update
   
-  apt-get install -y git unzip tmux chromium-browser xvfb
+  apt-get install -y git unzip tmux chromium-browser xvfb build-essential g++
 fi
 
 rm /home/vagrant/.bashrc
