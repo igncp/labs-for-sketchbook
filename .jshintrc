@@ -64,7 +64,7 @@
         "console": false,
         "Rx": false,
         "R": false,
-        "expect": false,
+        "require": false,
         "it": false,
         "describe": false
     }

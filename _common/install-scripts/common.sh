@@ -6,6 +6,7 @@ fi
 
 rm /home/vagrant/.bashrc
 cp /_common/install-scripts/dot-files/.bashrc /home/vagrant/.bashrc
+chown vagrant /home/vagrant/.bashrc
 
 if ! type "entr" > /dev/null; then
   cd ~
