@@ -18,7 +18,7 @@ describe 'ReactFragment', ()->
     console.warn.restore()
     console.warn = nativeWarn
 
-  # This tests only warns the first time mocha is run.
+  # This test only warns the first time mocha is run.
   # This is maybe because 'Only warn once for the same set of children'
   # and there is some pooling going around
   it 'should warn if a plain object is used as a child', ->
