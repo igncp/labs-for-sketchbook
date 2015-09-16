@@ -10,11 +10,17 @@ describe 'ReactClass-spec', ()->
   jsdom()
   React = null
   ReactTestUtils = null
+  warn = null
   
-  beforeEach(()->
+  beforeEach ->
     React = require '../../react/npm-react/dist/react'
     ReactTestUtils = require '../../react/modules/ReactTestUtils'
-  )
+    warn = console.warn
+    console.warn = -> null
+
+
+  afterEach ->
+    console.warn = warn
 
   it('should throw when `render` is not specified', ()->
     expect(()->
