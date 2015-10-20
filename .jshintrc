@@ -62,6 +62,7 @@
 
     "globals"       : {
         "console": false,
+        "module": false,
         "Rx": false,
         "R": false,
         "require": false,
