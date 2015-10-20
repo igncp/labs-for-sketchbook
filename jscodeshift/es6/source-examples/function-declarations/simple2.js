@@ -1,5 +1,5 @@
 function foo2() {
-  return 'bar';
+  return 'baz';
 }
 
 foo2();
