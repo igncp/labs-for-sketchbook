@@ -1,5 +1,5 @@
 var foo = function() {
-  return 'baz';
+  return foo;
 };
 
 var bar = foo => foo + 'baz';
