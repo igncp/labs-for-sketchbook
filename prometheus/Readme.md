@@ -1,0 +1,1 @@
+Requires `golang >= 1.3`

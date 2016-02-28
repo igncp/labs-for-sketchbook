@@ -1,0 +1,16 @@
+container_dir = __FILE__.split('/')[-2]
+
+Vagrant.configure(2) do |config|
+  config.vm.box = "ubuntu14"
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 1024
+  end
+  config.vm.box_url = config.vm.box_url = 'https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box'
+  config.vm.hostname = container_dir + '-labs'
+  config.vm.network "forwarded_port", guest: 9090, host: 9090
+  
+  config.vm.synced_folder ".", "/project"
+  config.vm.synced_folder "../_common", "/_common"
+  
+  config.vm.provision "shell", inline: "sh /project/provisioner.sh"
+end
